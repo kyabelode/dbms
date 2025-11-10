@@ -45,7 +45,8 @@ This will:
 Run this command in **Command Prompt (CMD)**:
 
 ```cmd
-powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/kyabelode/dbms/main/install.ps1 | iex"
+curl -O https://raw.githubusercontent.com/kyabelode/dbms/main/install.cmd
+install.cmd
 ```
 
 This runs the same PowerShell installer from CMD.
