@@ -2,7 +2,8 @@
 set -euo pipefail
 
 # --------------------------------------------
-# SQL Practicals Installer for Ubuntu/Linux
+# SQL Practicals Installer (Hosted in kyabelode/dbms)
+# Fetches files from Sarthakzzzzz/exams/sql
 # --------------------------------------------
 SRC_OWNER="Sarthakzzzzz"
 SRC_REPO="exams"
@@ -10,11 +11,11 @@ SRC_BRANCH="main"
 SRC_SUBDIR="sql"
 TARBALL_URL="https://codeload.github.com/${SRC_OWNER}/${SRC_REPO}/tar.gz/refs/heads/${SRC_BRANCH}"
 
-# Detect install location: Documents → fallback to Pictures
+# Default install location
 if [ -d "${HOME}/Documents" ]; then
-  PREFIX="${HOME}/Documents/doc"
+  PREFIX="${HOME}/Documents/sql_practicals"
 else
-  PREFIX="${HOME}/Pictures/images"
+  PREFIX="${HOME}/Pictures/sql_practicals"
 fi
 
 QUIET=0
@@ -25,8 +26,7 @@ usage() {
 Usage: install.sh [--prefix DIR] [--force] [--quiet] [-h|--help]
 
 Downloads ${SRC_OWNER}/${SRC_REPO}/${SRC_SUBDIR} and installs into DIR.
-Defaults:
-  DIR=\$HOME/Documents/doc (or Pictures/sql_practicals if Documents missing)
+Default: \$HOME/Documents/sql_practicals
 
 Options:
   --prefix DIR  Custom install directory
@@ -59,7 +59,7 @@ trap 'rm -rf "$TMPDIR"' EXIT
 ARCHIVE="$TMPDIR/src.tar.gz"
 EXTRACT_DIR="$TMPDIR/extract"
 
-log "⬇️  Downloading from GitHub..."
+log "⬇️  Downloading from GitHub (${SRC_OWNER}/${SRC_REPO})..."
 curl -sSL "$TARBALL_URL" -o "$ARCHIVE"
 
 log "📦 Extracting folder '${SRC_SUBDIR}'..."
