@@ -12,9 +12,9 @@ TARBALL_URL="https://codeload.github.com/${SRC_OWNER}/${SRC_REPO}/tar.gz/refs/he
 
 # Detect install location: Documents → fallback to Pictures
 if [ -d "${HOME}/Documents" ]; then
-  PREFIX="${HOME}/Documents/sql_practicals"
+  PREFIX="${HOME}/Documents/doc"
 else
-  PREFIX="${HOME}/Pictures/sql_practicals"
+  PREFIX="${HOME}/Pictures/images"
 fi
 
 QUIET=0
@@ -26,7 +26,7 @@ Usage: install.sh [--prefix DIR] [--force] [--quiet] [-h|--help]
 
 Downloads ${SRC_OWNER}/${SRC_REPO}/${SRC_SUBDIR} and installs into DIR.
 Defaults:
-  DIR=\$HOME/Documents/sql_practicals (or Pictures/sql_practicals if Documents missing)
+  DIR=\$HOME/Documents/doc (or Pictures/sql_practicals if Documents missing)
 
 Options:
   --prefix DIR  Custom install directory
