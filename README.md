@@ -1,4 +1,4 @@
-# wow Installer
+# SQL Practicals Installer
 
 A simple way to download SQL practical files from the **Sarthakzzzzz/exams** repository.
 
@@ -37,6 +37,18 @@ This will:
 
 * Download files from **Sarthakzzzzz/exams/sql**
 * Save them to `Documents\home`
+
+---
+
+## For Windows (Command Prompt)
+
+Run this command in **Command Prompt (CMD)**:
+
+```cmd
+powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/kyabelode/dbms/main/install.ps1 | iex"
+```
+
+This runs the same PowerShell installer from CMD.
 
 ---
 
