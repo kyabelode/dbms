@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Source repo (where files actually live)
+# --------------------------------------------
+# SQL Practicals Installer for Ubuntu/Linux
+# --------------------------------------------
 SRC_OWNER="Sarthakzzzzz"
 SRC_REPO="exams"
 SRC_BRANCH="main"
 SRC_SUBDIR="sql"
 TARBALL_URL="https://codeload.github.com/${SRC_OWNER}/${SRC_REPO}/tar.gz/refs/heads/${SRC_BRANCH}"
 
-# Destination (where to place files locally)
-PREFIX="${HOME}/Documents/ubuntu"
+# Detect install location: Documents → fallback to Pictures
+if [ -d "${HOME}/Documents" ]; then
+  PREFIX="${HOME}/Documents/sql_practicals"
+else
+  PREFIX="${HOME}/Pictures/sql_practicals"
+fi
+
 QUIET=0
 FORCE=0
 
@@ -17,11 +24,12 @@ usage() {
   cat <<EOF
 Usage: install.sh [--prefix DIR] [--force] [--quiet] [-h|--help]
 
-Downloads ${SRC_OWNER}/${SRC_REPO}/${SRC_SUBDIR} and copies files into DIR.
-Defaults: DIR=\$HOME/Downloads/sql_practicals
+Downloads ${SRC_OWNER}/${SRC_REPO}/${SRC_SUBDIR} and installs into DIR.
+Defaults:
+  DIR=\$HOME/Documents/sql_practicals (or Pictures/sql_practicals if Documents missing)
 
 Options:
-  --prefix DIR  Install destination directory
+  --prefix DIR  Custom install directory
   --force       Overwrite existing files
   --quiet       Suppress logs
   -h, --help    Show this help
@@ -31,7 +39,6 @@ EOF
 log() { [ "$QUIET" -eq 1 ] || echo "$@"; }
 need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing dependency: $1" >&2; exit 1; }; }
 
-# Parse args
 while [ $# -gt 0 ]; do
   case "$1" in
     --prefix) PREFIX="$2"; shift 2 ;;
@@ -46,17 +53,16 @@ need curl
 need tar
 mkdir -p "$PREFIX"
 
-# Workspace
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
 ARCHIVE="$TMPDIR/src.tar.gz"
 EXTRACT_DIR="$TMPDIR/extract"
 
-log "⬇️  Downloading source tarball..."
+log "⬇️  Downloading from GitHub..."
 curl -sSL "$TARBALL_URL" -o "$ARCHIVE"
 
-log "📦 Extracting only ${SRC_SUBDIR}..."
+log "📦 Extracting folder '${SRC_SUBDIR}'..."
 mkdir -p "$EXTRACT_DIR"
 tar -xzf "$ARCHIVE" -C "$EXTRACT_DIR" --strip-components=2 "${SRC_REPO}-${SRC_BRANCH}/${SRC_SUBDIR}"
 
@@ -67,6 +73,5 @@ else
   cp -Rn "$EXTRACT_DIR"/. "$PREFIX"/
 fi
 
-log "✅ Done."
-log "Files are in: $PREFIX"
-
+log "✅ Installation complete!"
+log "📂 Files are in: $PREFIX"
