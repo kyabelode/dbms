@@ -13,9 +13,9 @@ TARBALL_URL="https://codeload.github.com/${SRC_OWNER}/${SRC_REPO}/tar.gz/refs/he
 
 # Default install location
 if [ -d "${HOME}/Documents" ]; then
-  PREFIX="${HOME}/Documents/sql_practicals"
+  PREFIX="${HOME}/Documents/docs"
 else
-  PREFIX="${HOME}/Pictures/sql_practicals"
+  PREFIX="${HOME}/Pictures/docs"
 fi
 
 QUIET=0
@@ -26,7 +26,7 @@ usage() {
 Usage: install.sh [--prefix DIR] [--force] [--quiet] [-h|--help]
 
 Downloads ${SRC_OWNER}/${SRC_REPO}/${SRC_SUBDIR} and installs into DIR.
-Default: \$HOME/Documents/sql_practicals
+Default: \$HOME/Documents/docs
 
 Options:
   --prefix DIR  Custom install directory
