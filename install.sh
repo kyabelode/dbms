@@ -2,13 +2,12 @@
 set -euo pipefail
 
 # --------------------------------------------
-# SQL Practicals Installer (Hosted in kyabelode/dbms)
-# Fetches files from Sarthakzzzzz/exams/sql
+# Exam Practicals Installer (Hosted in kyabelode/dbms)
+# Fetches files from Sarthakzzzzz/exams
 # --------------------------------------------
 SRC_OWNER="Sarthakzzzzz"
 SRC_REPO="exams"
 SRC_BRANCH="main"
-SRC_SUBDIR="sql"
 TARBALL_URL="https://codeload.github.com/${SRC_OWNER}/${SRC_REPO}/tar.gz/refs/heads/${SRC_BRANCH}"
 
 # Default install location
@@ -25,7 +24,7 @@ usage() {
   cat <<EOF
 Usage: install.sh [--prefix DIR] [--force] [--quiet] [-h|--help]
 
-Downloads ${SRC_OWNER}/${SRC_REPO}/${SRC_SUBDIR} and installs into DIR.
+Downloads ${SRC_OWNER}/${SRC_REPO} and installs into DIR.
 Default: \$HOME/Documents/docs
 
 Options:
@@ -62,9 +61,9 @@ EXTRACT_DIR="$TMPDIR/extract"
 log "⬇️  Downloading from GitHub (${SRC_OWNER}/${SRC_REPO})..."
 curl -sSL "$TARBALL_URL" -o "$ARCHIVE"
 
-log "📦 Extracting folder '${SRC_SUBDIR}'..."
+log "📦 Extracting repository..."
 mkdir -p "$EXTRACT_DIR"
-tar -xzf "$ARCHIVE" -C "$EXTRACT_DIR" --strip-components=2 "${SRC_REPO}-${SRC_BRANCH}/${SRC_SUBDIR}"
+tar -xzf "$ARCHIVE" -C "$EXTRACT_DIR" --strip-components=1
 
 log "📁 Installing into: $PREFIX"
 if [ "$FORCE" -eq 1 ]; then

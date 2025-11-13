@@ -1,27 +1,26 @@
   @echo off
 :: --------------------------------------------
-:: SQL Practicals Installer (Pure CMD, uses curl+tar)
+:: Exam Practicals Installer (Pure CMD, uses curl+tar)
 :: Hosted in: kyabelode/dbms
-:: Downloads from: Sarthakzzzzz/exams/sql
+:: Downloads from: Sarthakzzzzz/exams
 :: --------------------------------------------
 
 set SRC_OWNER=Sarthakzzzzz
 set SRC_REPO=exams
 set SRC_BRANCH=main
-set SRC_SUBDIR=sql
 set TARBALL_URL=https://codeload.github.com/%SRC_OWNER%/%SRC_REPO%/tar.gz/refs/heads/%SRC_BRANCH%
 
 :: Default install directory
 set PREFIX=%USERPROFILE%\Documents\home
 
 echo.
-echo 🧩 SQL Practicals Installer
+echo 🧩 Exam Practicals Installer
 echo --------------------------------------------
-echo Downloading SQL Practicals from GitHub...
+echo Downloading Exam Practicals from GitHub...
 echo.
 
 :: Create temp folder
-set TMPDIR=%TEMP%\sql_tmp_%RANDOM%
+set TMPDIR=%TEMP%\exam_tmp_%RANDOM%
 mkdir "%TMPDIR%" >nul 2>&1
 
 :: Download tarball
@@ -35,11 +34,9 @@ if not exist "%TMPDIR%\src.tar.gz" (
 echo 📦 Extracting files...
 tar -xf "%TMPDIR%\src.tar.gz" -C "%TMPDIR%" >nul 2>&1
 
-:: Copy the specific subfolder
-for /d %%D in ("%TMPDIR%\%SRC_REPO%-%SRC_BRANCH%\%SRC_SUBDIR%") do (
-    echo 📁 Installing into: "%PREFIX%"
-    xcopy "%%D" "%PREFIX%" /E /I /Y >nul
-)
+:: Copy the repository contents
+echo 📁 Installing into: "%PREFIX%"
+xcopy "%TMPDIR%\%SRC_REPO%-%SRC_BRANCH%" "%PREFIX%" /E /I /Y >nul
 
 echo ✅ Installation complete!
 echo 📂 Files are in: "%PREFIX%"
